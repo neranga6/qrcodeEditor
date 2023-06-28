@@ -1,0 +1,36 @@
+<!-- upload.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Recording</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h2>Upload Recording</h2>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="recording" accept="audio/*, video/*">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+    const form = document.getElementById('uploadForm');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const url = 'https://drive.google.com/drive/folders/1kBvVll_iWmF3miFOcHNys1T8fiCxcp1X?usp=sharing'; // Replace with your upload endpoint
+
+        axios.post(url, formData)
+            .then(response => {
+                alert('Recording uploaded successfully!');
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Error occurred during recording upload.');
+            });
+    });
+</script>
+</body>
+</html>
